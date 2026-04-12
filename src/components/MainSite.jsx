@@ -64,9 +64,9 @@ export default function MainSite() {
                 <p className="text-gray-500 text-sm font-medium">11:00 AM</p>
               </div>
               <div className="md:w-2/3 text-center md:text-left">
-                <h3 className="text-xl font-medium mb-2">Early Arrival & Russian River Float <span className="inline-block px-2 py-1 bg-amber-100 text-amber-800 text-xs font-bold rounded mt-2 md:mt-0 md:ml-2 align-middle">OPTIONAL</span></h3>
-                <p className="text-gray-500 text-sm uppercase tracking-wider mb-3">Casual</p>
-                <p className="text-gray-600">For those arriving a day ahead, join us for an optional float down the Russian River. Pack your swimsuits and sunscreen!</p>
+                <h3 className="text-xl font-medium mb-2">Early Arrival & Russian River Float <span className="inline-block px-2 py-1 bg-amber-100 text-amber-800 text-xs font-bold tracking-wider uppercase rounded mt-2 md:mt-0 md:ml-2 align-middle">Extra Optional</span></h3>
+                <p className="text-gray-500 text-sm uppercase tracking-wider mb-3">Daytime</p>
+                <p className="text-gray-600">Come join us as we ford the Russian River in a sun-soaked afternoon of celebration before we keep living our life together. We’ll have the inflatables ready for the brave, so just bring your sunscreen and prepare to surrender to the lazy river of life.</p>
               </div>
             </div>
 
@@ -77,8 +77,8 @@ export default function MainSite() {
                 <p className="text-gray-500 text-sm font-medium">8:00 PM</p>
               </div>
               <div className="md:w-2/3 text-center md:text-left">
-                <h3 className="text-xl font-medium mb-2">Welcome Party</h3>
-                <p className="text-gray-500 text-sm uppercase tracking-wider mb-3">Evening</p>
+                <h3 className="text-xl font-medium mb-2">Welcome Party <span className="inline-block px-2 py-1 bg-gray-100 text-gray-500 text-xs font-bold tracking-wider uppercase rounded mt-2 md:mt-0 md:ml-2 align-middle">Optional</span></h3>
+                <p className="text-gray-500 text-sm uppercase tracking-wider mb-3">The Stavrand: Evening</p>
                 <p className="text-gray-600">Join us for welcome drinks and light bites to kick off the celebration weekend together.</p>
               </div>
             </div>
@@ -91,7 +91,7 @@ export default function MainSite() {
               </div>
               <div className="md:w-2/3 text-center md:text-left">
                 <h3 className="text-xl font-medium mb-2">The Wedding Ceremony & Reception</h3>
-                <p className="text-gray-500 text-sm uppercase tracking-wider mb-3">The Stavrand</p>
+                <p className="text-gray-500 text-sm uppercase tracking-wider mb-3">The Stavrand: Evening</p>
                 <p className="text-gray-600">Our main event. Dinner, dancing, and celebrating under the stars.</p>
               </div>
             </div>
@@ -103,8 +103,8 @@ export default function MainSite() {
                 <p className="text-gray-500 text-sm font-medium">10:00 AM</p>
               </div>
               <div className="md:w-2/3 text-center md:text-left">
-                <h3 className="text-xl font-medium mb-2">Goodbye Breakfast</h3>
-                <p className="text-gray-500 text-sm uppercase tracking-wider mb-3">Morning</p>
+                <h3 className="text-xl font-medium mb-2">Goodbye Breakfast <span className="inline-block px-2 py-1 bg-gray-100 text-gray-500 text-xs font-bold tracking-wider uppercase rounded mt-2 md:mt-0 md:ml-2 align-middle">Optional</span></h3>
+                  <p className="text-gray-500 text-sm uppercase tracking-wider mb-3">TBD: Morning</p>
                 <p className="text-gray-600">Grab a bite and some coffee before heading home. We'll be around to say our farewells.</p>
               </div>
             </div>
@@ -114,7 +114,7 @@ export default function MainSite() {
         {/* Travel & Stay */}
         <section id="travel" className="bg-[var(--color-sage-300)]/10 -mx-6 px-6 py-20 rounded-3xl text-center">
           <h2 className="text-3xl md:text-4xl font-serif text-[var(--color-sage-600)] mb-8">Travel & Stay</h2>
-          <div className="max-w-2xl mx-auto space-y-6 text-gray-600">
+          <div className="max-w-2xl mx-auto space-y-6 text-gray-600 mb-12">
             <p>
               The Stavrand is located in the heart of Guerneville. We recommend booking your accommodations early as it is a popular summer destination.
             </p>
@@ -123,6 +123,19 @@ export default function MainSite() {
               Charles M. Schulz–Sonoma County Airport (STS) - 25 mins<br />
               San Francisco International Airport (SFO) - 2 hours
             </p>
+          </div>
+
+          <div className="w-full max-w-4xl mx-auto h-80 md:h-96 rounded-2xl shadow-sm border border-[var(--color-sage-300)] overflow-hidden">
+            <iframe 
+              src="https://maps.google.com/maps?q=The%20Stavrand,%20Guerneville,%20CA&t=&z=14&ie=UTF8&iwloc=&output=embed" 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0, filter: 'grayscale(0.2) sepia(0.3) hue-rotate(60deg) saturate(0.8)' }} 
+              allowFullScreen="" 
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Location of The Stavrand"
+            ></iframe>
           </div>
         </section>
 
