@@ -1,87 +1,102 @@
 import React from 'react';
 import { motion, useAnimationControls, useScroll, useMotionValueEvent } from 'framer-motion';
 
+function isMobileScreen() {
+  return window.innerWidth < 768;
+}
+
 export default function Polaroid({ src, alt, origin = 'left', top, rotation = -5, className = '' }) {
   const isLeft = origin === 'left';
   const controls = useAnimationControls();
   const ref = React.useRef(null);
   const [isHovered, setIsHovered] = React.useState(false);
-  const [phase, setPhase] = React.useState('hidden'); // hidden | visible | retreated
+  const [tapped, setTapped] = React.useState(false);
+  const [phase, setPhase] = React.useState('hidden');
 
-  // Resting positions
+  // Desktop positions
   const hidden = isLeft ? "calc(-100% + 15px)" : "calc(100% - 15px)";
   const peek = isLeft ? "calc(-100% + 90px)" : "calc(100% - 90px)";
   const full = isLeft ? "20px" : "-20px";
   const hoverX = isLeft ? "10px" : "-10px";
 
-  // Track how far the element has scrolled through the viewport
-  // scrollYProgress: 0 = element entering from bottom, 1 = element leaving out the top
+  // Mobile positions — static edge peeks, no scroll movement
+  const mobileRest = isLeft ? "calc(-100% + 30px)" : "calc(100% - 30px)";
+  const mobileTap = isLeft ? "15px" : "-15px";
+
+  // Desktop: scroll-driven animation
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"]
   });
 
   useMotionValueEvent(scrollYProgress, "change", (progress) => {
-    if (isHovered) return;
+    if (isMobileScreen() || isHovered) return; // Skip scroll animations on mobile
 
-    // Swoop in when entering the viewport
     if (progress > 0.25 && progress < 0.55 && phase !== 'visible') {
       setPhase('visible');
-      controls.start({
-        x: full,
-        transition: { duration: 0.8, ease: "easeOut" }
-      });
+      controls.start({ x: full, transition: { duration: 0.8, ease: "easeOut" } });
     }
-    // Retreat gracefully while still within view
     else if (progress >= 0.55 && phase !== 'retreated') {
       setPhase('retreated');
-      controls.start({
-        x: peek,
-        transition: { duration: 1.2, ease: "easeInOut" }
-      });
+      controls.start({ x: peek, transition: { duration: 1.2, ease: "easeInOut" } });
     }
-    // Reset if scrolled back above
     else if (progress <= 0.25 && phase !== 'hidden') {
       setPhase('hidden');
-      controls.start({
-        x: hidden,
-        transition: { duration: 0.5, ease: "easeIn" }
-      });
+      controls.start({ x: hidden, transition: { duration: 0.5, ease: "easeIn" } });
     }
   });
 
+  // Desktop hover
   const handleHoverStart = () => {
+    if (isMobileScreen()) return;
     setIsHovered(true);
     controls.start({
-      x: hoverX,
-      y: -5,
+      x: hoverX, y: -5,
       rotate: isLeft ? rotation + 3 : rotation - 3,
-      scale: 1.15,
-      zIndex: 50,
+      scale: 1.15, zIndex: 50,
       transition: { type: "spring", stiffness: 400, damping: 25 }
     });
   };
 
   const handleHoverEnd = () => {
+    if (isMobileScreen()) return;
     setIsHovered(false);
     controls.start({
-      x: peek,
-      y: 0,
-      rotate: rotation,
-      scale: 1,
-      zIndex: 10,
+      x: peek, y: 0, rotate: rotation, scale: 1, zIndex: 10,
       transition: { type: "spring", stiffness: 400, damping: 25 }
     });
   };
 
+  // Mobile tap toggle
+  const handleTap = () => {
+    if (!isMobileScreen()) return;
+    if (!tapped) {
+      setTapped(true);
+      controls.start({
+        x: mobileTap, y: -5,
+        rotate: isLeft ? rotation + 2 : rotation - 2,
+        scale: 1.1, zIndex: 50,
+        transition: { type: "spring", stiffness: 300, damping: 20 }
+      });
+    } else {
+      setTapped(false);
+      controls.start({
+        x: mobileRest, y: 0, rotate: rotation, scale: 1, zIndex: 10,
+        transition: { type: "spring", stiffness: 300, damping: 20 }
+      });
+    }
+  };
+
+  const initialX = isMobileScreen() ? mobileRest : hidden;
+
   return (
     <motion.div
       ref={ref}
-      initial={{ x: hidden, y: 0, rotate: rotation, scale: 1, zIndex: 10 }}
+      initial={{ x: initialX, y: 0, rotate: rotation, scale: 1, zIndex: 10 }}
       animate={controls}
       onHoverStart={handleHoverStart}
       onHoverEnd={handleHoverEnd}
-      onTapStart={handleHoverStart}
+      onTap={handleTap}
       style={{
         position: 'absolute',
         top: top,
